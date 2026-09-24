@@ -1,0 +1,22 @@
+name: Show your build
+description: Built a PROBE LX-3? Share photos, remixes and software.
+title: "[Build log] "
+labels: ["show-and-tell"]
+body:
+  - type: textarea
+    id: photos
+    attributes:
+      label: Photos / video
+      description: Drag images or video in here.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything you changed?
+      description: Colours, remixes, add-ons, tips for other builders.
+  - type: input
+    id: software
+    attributes:
+      label: Link to your software (optional)
+      placeholder: https://github.com/you/your-probe-code

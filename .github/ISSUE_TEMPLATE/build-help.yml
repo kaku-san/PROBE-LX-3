@@ -1,0 +1,35 @@
+name: Build help / design issue
+description: Stuck on a step, a part doesn't fit, or something in the docs is wrong.
+title: "[Build] "
+labels: ["build-help"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where are you stuck?
+      options:
+        - Parts / BOM
+        - Printing
+        - Assembly
+        - Wiring / electronics
+        - Add-ons (lidar, audio, AI HAT)
+        - Docs are wrong or unclear
+    validations:
+      required: true
+  - type: input
+    id: step
+    attributes:
+      label: Assembly step (if any)
+      placeholder: e.g. Step 12, camera bracket latch
+  - type: textarea
+    id: what
+    attributes:
+      label: What's happening?
+      description: What you expected, what you got, and photos if you can.
+    validations:
+      required: true
+  - type: textarea
+    id: setup
+    attributes:
+      label: Printer and material
+      placeholder: e.g. Bambu A1, PLA, 0.2 mm layers

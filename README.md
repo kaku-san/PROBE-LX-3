@@ -2,7 +2,8 @@
 
 # PROBE LX-3
 
-**An open-source, 3D-printed, Raspberry Pi 5 rover with a twist-lock dome.**
+**An open-source, 3D-printed Raspberry Pi 5 robot you build yourself.**<br>
+A DIY rover with a camera, a distance sensor, a twist-lock dome and room for a lidar.
 
 by [LUMALIEN](https://lumalien.com)
 
@@ -15,6 +16,8 @@ by [LUMALIEN](https://lumalien.com)
 <img src="docs/images/hero.png" alt="PROBE LX-3 rendered three-quarter front view" width="820">
 
 [**Parts list**](docs/BOM.md) · [**Printing**](docs/PRINTING.md) · [**Assembly**](docs/ASSEMBLY.md) · [**Wiring**](docs/WIRING.md) · [**Add-ons & upgrades**](docs/UPGRADES.md) · [**PDF manual**](manual/PROBE-LX-3-Assembly-Manual-v2.pdf)
+
+**[⬇ Download the latest release (STLs + PDF manual)](https://github.com/patmakesapps/PROBE-LX-3/releases/latest)**
 
 </div>
 
@@ -87,9 +90,19 @@ blender -b cad/PROBE-LX-3.blend --python tools/render_images.py -- hero docs/ima
 
 Views: `hero`, `hero_lidar`, `internals`, `exploded`, `parts`.
 
+## Want a bigger robot?
+
+PROBE LX-3 is LUMALIEN's free DIY robot. For a more capable robot, see the **[VISITOR LX-1 at lumalien.com](https://www.lumalien.com/visitor-lx-1)**.
+
 ## Contributing
 
-Build logs, photos, remixes and fixes are welcome. Open an issue or a pull request. If you write software for PROBE LX-3, open an issue with a link and we'll list it here.
+Build logs, photos, remixes and fixes are welcome.
+
+- **Built one?** [Show your build](https://github.com/patmakesapps/PROBE-LX-3/issues/new?template=show-your-build.yml). We love seeing them.
+- **Stuck or found a problem?** [Ask for build help](https://github.com/patmakesapps/PROBE-LX-3/issues/new?template=build-help.yml).
+- **Wrote software for it?** Share it through either link above and we'll list it here.
+
+If this project helped you, give the repo a ⭐. It helps other makers find it.
 
 ## License
 
