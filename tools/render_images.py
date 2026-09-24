@@ -9,7 +9,7 @@
 import bpy, sys, math
 from mathutils import Vector
 argv = sys.argv[sys.argv.index("--")+1:]
-view, out = argv[0], argv[1]
+view, out = argv[0], __import__("os").path.abspath(argv[1])
 sc = bpy.context.scene
 print("UNITS", sc.unit_settings.system, sc.unit_settings.scale_length)
 
@@ -69,9 +69,11 @@ if view == "exploded":
 if view == "parts":
     show([o for o in sc.objects], False)
     layout = {"DOME | printable":(-150,90,0),"BASE | printable":(150,90,0),"DRIVE PLATE | printable":(160,-150,0),
-              "ELECTRONICS TRAY | printable":(-160,-150,0),"CAM BRACKET | printable":(-10,-80,0),"LIDAR ADAPTER | printable":(0,-190,0)}
+              "ELECTRONICS TRAY | printable":(-160,-150,0),"CAM BRACKET | printable":(-10,-80,0),"LIDAR ADAPTER | printable":(0,-190,0),
+              "LX1_WHEEL_HUB_L":(0,150,0),"LX1_WHEEL_TIRE_L":(0,95,0)}
     for n,(x,y,z) in layout.items():
         o = bpy.data.objects[n]; o.hide_render=False
+        if n.startswith("LX1_WHEEL"): o.rotation_euler=(0,0,0); bpy.context.view_layer.update()
         bb=[o.matrix_world @ Vector(c) for c in o.bound_box]
         cx=sum(v.x for v in bb)/8; cy=sum(v.y for v in bb)/8; mz=min(v.z for v in bb)
         o.location += Vector((x-cx, y-cy, -mz))

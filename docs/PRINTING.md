@@ -15,6 +15,8 @@ Every part is sized for a **Bambu Lab A1 (256 mm bed)**, has **3.0 mm design wal
 | [`PROBE-LX3_electronics-tray.stl`](../stl/PROBE-LX3_electronics-tray.stl) | Electronics tray | Ø123 × 26 | **Underside down** | Carries the Pi 5 posts and the 4AA cradle. For electronics changes, reprint this part, not the base. |
 | [`PROBE-LX3_drive-plate.stl`](../stl/PROBE-LX3_drive-plate.stl) | Drive plate | 161 × 124 × 7.5 | **Top face down** | Nut pockets face the bed and the caster pad faces up. |
 | [`PROBE-LX3_camera-bracket.stl`](../stl/PROBE-LX3_camera-bracket.stl) | Camera bracket | 67 × 61 × 35.6 | **Flat back face down** | Holds the camera and distance sensor, and clicks into the dome's rail. |
+| [`PROBE-LX3_wheel-hub.stl`](../stl/PROBE-LX3_wheel-hub.stl) | Wheel hub **× 2** | Ø31.8 × 19 | **Flat on its side** (axis vertical) | PLA or PETG. The D-bore presses onto the N20 shaft. |
+| [`PROBE-LX3_wheel-tyre.stl`](../stl/PROBE-LX3_wheel-tyre.stl) | Wheel tyre **× 2** | Ø43 × 19 | **Flat on its side** (axis vertical) | **TPU.** Stretches over the hub. |
 | [`PROBE-LX3_lidar-adapter_optional.stl`](../stl/PROBE-LX3_lidar-adapter_optional.stl) | Lidar adapter *(optional)* | 64 × 78 × 21.7 | **Flat face down** | Only for the RPLIDAR add-on. |
 
 ## Suggested slicer settings
@@ -23,7 +25,7 @@ These are starting points. Tune them for your printer and filament.
 
 | Setting | Value |
 | --- | --- |
-| Material | PLA or PETG |
+| Material | PLA or PETG. Tyres in TPU. |
 | Layer height | 0.2 mm (0.16 mm on the camera bracket for a crisper latch) |
 | Wall loops | Enough to fill the 3 mm design walls (about 4–5 at 0.4 mm line width) |
 | Infill | 15–20 % (gyroid or grid) |

@@ -15,7 +15,7 @@ The robot goes together bottom-up in **13 steps**. Build the drive plate first a
 | Stage | Steps |
 | --- | --- |
 | **A. Shells and prep** | [1 Test-fit](#step-1--test-fit-the-shells) · [2 Inserts](#step-2--heat-set-inserts-in-the-electronics-tray) · [3 Nuts](#step-3--nuts-into-the-drive-plate) |
-| **B. Drive plate** | [4 Motors](#step-4--mount-the-motors) · [5 Caster](#step-5--mount-the-caster) · [6 Motor wires](#step-6--route-the-motor-wires) |
+| **B. Drive plate** | [4 Wheels + motors](#step-4--build-the-wheels-and-mount-the-motors) · [5 Caster](#step-5--mount-the-caster) · [6 Motor wires](#step-6--route-the-motor-wires) |
 | **C. Chassis** | [7 Plate + base + tray](#step-7--join-the-drive-plate-base-and-tray) |
 | **D. Electronics** | [8 Pi 5 + X1200](#step-8--pi-5-and-x1200-stack) · [9 Motor bonnet](#step-9--motor-bonnet) · [10 AA pack](#step-10--4aa-battery-pack) · [11 Base wiring](#step-11--base-wiring) |
 | **E. Dome** | [12 Camera + sensor](#step-12--camera-and-distance-sensor-into-the-dome) · [13 Connect and close](#step-13--connect-and-close) |
@@ -53,18 +53,18 @@ The robot goes together bottom-up in **13 steps**. Build the drive plate first a
 
 ## B. Drive plate
 
-### Step 4 — Mount the motors
+### Step 4 — Build the wheels and mount the motors
 
-**You need:** 2 × N20 motors with wheels, 2 × brackets, 4 × M2 screws
+**You need:** 2 × N20 motors, 2 × printed wheel hubs, 2 × printed TPU tyres, 2 × brackets, 4 × M2 screws
 
-The motors ship with the wheels already on, so each one goes on as a unit.
-
-1. Lay a motor on each **rear arm**, with the wheel pointing outward and the solder tabs (or encoder board) toward the centre.
-2. Line the gearbox's front face up with the arm tip. The wheel should sit about **1 mm clear** of the tip.
-3. *Encoder motors only:* the encoder board drops into the shallow pocket beside the wire slot.
-4. Set a bracket over the gearbox with its two ears over the arm's two holes.
-5. Drive 2 M2 screws through each bracket into the nuts. **Snug them only.** Overtightening crushes the gearbox.
-6. Spin each wheel by hand. It must turn freely and not touch the plate.
+1. Stretch a **tyre** over each **hub** until it sits evenly all the way round.
+2. Press a wheel onto each motor's D-shaft. Line the flat in the hub bore up with the flat on the shaft, and push the wheel fully home.
+3. Lay a motor on each **rear arm**, with the wheel pointing outward and the solder tabs (or encoder board) toward the centre.
+4. Line the gearbox's front face up with the arm tip. The wheel should sit about **1 mm clear** of the tip.
+5. *Encoder motors only:* the encoder board drops into the shallow pocket beside the wire slot.
+6. Set a bracket over the gearbox with its two ears over the arm's two holes.
+7. Drive 2 M2 screws through each bracket into the nuts. **Snug them only.** Overtightening crushes the gearbox.
+8. Spin each wheel by hand. It must turn freely and not touch the plate.
 
 ### Step 5 — Mount the caster
 
@@ -72,8 +72,7 @@ The motors ship with the wheels already on, so each one goes on as a unit.
 
 1. Wipe the raised round pad clean with isopropyl alcohol if you have it.
 2. Peel the caster's adhesive backing, centre the caster on the pad, and press hard for 30 seconds.
-3. **Leave it 24 hours before driving** so the adhesive reaches full strength.
-4. *Optional backup:* drive 2 short self-tapping screws through the caster's holes into the pad. Go **no deeper than 6 mm**, or they will reach the base floor.
+3. *Optional backup:* drive 2 short self-tapping screws through the caster's holes into the pad. Go **no deeper than 6 mm**, or they will reach the base floor.
 
 ### Step 6 — Route the motor wires
 

@@ -26,7 +26,7 @@ This is everything you need to build a PROBE LX-3 from scratch. Brand names are 
 
 | ✓ | Qty | Part | Notes |
 | :-: | :-: | --- | --- |
-| ☐ | 2 | **N20 micro gear motor with wheel** (~43 mm tyre) | Plain or encoder versions both fit, and the plate has an encoder-board pocket. Modelled on the **12SG-N20VA-100-EN**. Choose a voltage that suits a 4 × AA (~6 V) supply. |
+| ☐ | 2 | **N20 micro gear motor** (standard D-shaft) | Plain or encoder versions both fit, and the plate has an encoder-board pocket. The wheels are printed (see [Printing](PRINTING.md)). Modelled on the **12SG-N20VA-100-EN**. Choose a voltage that suits a 4 × AA (~6 V) supply. |
 | ☐ | 2 | **Meccanixity N20 motor bracket** (with M2 screws and nuts) | One per motor. |
 | ☐ | 1 | **MARRTEUM ball caster** (20 mm ball, adhesive pad) | Sold as a 4-pack. You need 1. |
 | ☐ | 1 | **4 × AA battery holder**, with a switch and leads | Motor power. Held on the tray cradle with zip ties. |
@@ -66,7 +66,8 @@ All counts are for the **core build**. The totals already include the counts fro
 
 | ✓ | Qty | Material | Notes |
 | :-: | :-: | --- | --- |
-| ☐ | ~1 kg | **PLA or PETG** | One spool covers every part. The renders use white (dome), black (base), grey (drive plate) and purple (tray, bracket, lidar adapter). |
+| ☐ | ~1 kg | **PLA or PETG** | One spool covers every rigid part. The renders use white (dome), black (base), grey (drive plate) and purple (tray, bracket, lidar adapter). |
+| ☐ | small amount | **TPU** | For the 2 wheel tyres. |
 
 See [PRINTING.md](PRINTING.md) for per-part settings.
 

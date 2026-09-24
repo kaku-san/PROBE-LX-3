@@ -8,7 +8,7 @@ by [LUMALIEN](https://lumalien.com)
 
 ![Hardware: open source](https://img.shields.io/badge/hardware-open%20source-7a3fc4?style=flat-square)
 ![License: CC BY-SA 4.0](https://img.shields.io/badge/license-CC%20BY--SA%204.0-lightgrey?style=flat-square)
-![Printed parts: 5 + 1 optional](https://img.shields.io/badge/printed%20parts-5%20%2B%201%20optional-7a3fc4?style=flat-square)
+![Printed parts: 7 + 1 optional](https://img.shields.io/badge/printed%20parts-7%20%2B%201%20optional-7a3fc4?style=flat-square)
 ![Supports: none](https://img.shields.io/badge/supports-none-2ea44f?style=flat-square)
 ![Bed: 256 mm](https://img.shields.io/badge/min%20bed-256%20mm-blue?style=flat-square)
 
@@ -45,7 +45,7 @@ The dome twist-locks onto the base, so the electronics are one quarter-turn away
 | **Power** | 2 × 18650 on a Geekworm X1200 UPS for the Pi · 4 × AA for the motors |
 | **Sensors** | Arducam B0385 USB camera · CQRobot VL53L1X time-of-flight sensor |
 | **Motor driver** | Adafruit 4280 DC + Stepper Motor Bonnet (I²C) |
-| **Printed parts** | 5 core parts + 1 optional, all printed with no supports |
+| **Printed parts** | 7 core parts (including printed wheel hubs and TPU tyres) + 1 optional, all printed with no supports |
 | **Printer** | 256 × 256 mm bed minimum (the dome is Ø244.8 mm). Designed on a Bambu Lab A1 |
 | **Add-ons (no reprint)** | RPLIDAR A1M8 on top · Waveshare WM8960 audio HAT + 2 speakers |
 
@@ -53,16 +53,16 @@ The dome twist-locks onto the base, so the electronics are one quarter-turn away
 
 1. **Buy the parts.** Use the [Bill of Materials](docs/BOM.md) for electronics, motion parts, every screw and the tools.
 2. **Print the parts.** Settings and orientations are in [PRINTING.md](docs/PRINTING.md), and the files are in [`stl/`](stl).
-3. **Assemble.** Follow the [13-step assembly guide](docs/ASSEMBLY.md), which is an afternoon's work plus 24 h for the caster adhesive to cure.
+3. **Assemble.** Follow the [13-step assembly guide](docs/ASSEMBLY.md). It's about an afternoon's work.
 4. **Wire it and check it.** [WIRING.md](docs/WIRING.md) has the connections and the pre-power checklist.
 
-<p align="center"><img src="docs/images/parts.png" alt="All six printed parts laid out" width="720"></p>
+<p align="center"><img src="docs/images/parts.png" alt="All printed parts laid out" width="720"></p>
 
 ## Repository layout
 
 ```
 PROBE-LX-3/
-├── stl/                  Print-ready STL files (6)
+├── stl/                  Print-ready STL files (8)
 ├── cad/                  Full Blender source model (all parts + reference hardware)
 ├── docs/
 │   ├── BOM.md            Everything you need to buy

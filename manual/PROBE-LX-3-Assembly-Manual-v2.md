@@ -4,7 +4,7 @@ LUMALIEN · Sep 24, 2026
 
 ## Overview
 
-This manual builds the LUMALIEN PROBE LX-3 from 5 printed parts plus an optional lidar adapter, in 13 steps. The robot is a Ø245 mm dome on a Ø209 mm base, driven by two rear N20 motors with a front ball caster. It carries a Raspberry Pi 5, Geekworm X1200 UPS, Adafruit 4280 motor bonnet, Arducam B0385 camera and CQRobot VL53L1X distance sensor.
+This manual builds the LUMALIEN PROBE LX-3 from 7 printed parts (the wheel hub and tyre are printed twice) plus an optional lidar adapter, in 13 steps. The robot is a Ø245 mm dome on a Ø209 mm base, driven by two rear N20 motors with a front ball caster. It carries a Raspberry Pi 5, Geekworm X1200 UPS, Adafruit 4280 motor bonnet, Arducam B0385 camera and CQRobot VL53L1X distance sensor.
 
 The dome twist-locks onto the base, so the electronics stay reachable. The drive plate accepts plain or encoder N20 motors. The dome is ready for two add-ons with no reprint: an RPLIDAR A1M8 on top, and a Waveshare WM8960 audio HAT with two speakers behind grilles in the rear.
 
@@ -19,6 +19,8 @@ All parts are sized for a Bambu A1 (256 mm bed) with 3.0 mm walls. No part needs
 | Base | Ø209.4 × 41.5 | Floor down | None | Plain shell. Walls lean 49°. |
 | Electronics tray | Ø123 × 26 | Underside down | None | Carries the Pi 5 stack posts and the 4AA cradle. Reprint this, not the base, for electronics changes. |
 | Drive plate | 161 × 124 × 7.5 | Top face down | None | Nut pockets face the bed, caster pad faces up. |
+| Wheel hub (print 2) | Ø31.8 × 19 | Flat on its side, axis vertical | None | PLA or PETG. The D-bore presses onto the N20 shaft. |
+| Wheel tyre (print 2) | Ø43 × 19 | Flat on its side, axis vertical | None | TPU. Stretches over the hub. |
 | Lidar adapter (optional) | 64 × 78 × 21.7 | Flat face down | None | Only needed for the lidar add-on. |
 
 Clean every hole after printing, and push a zip tie through each speaker loop in the dome to clear it.
@@ -71,23 +73,22 @@ Build the drive plate first, fix it to the empty base, then load the electronics
 2. Press an M2 nut into each of the 4 hex pockets on the arms (motor brackets).
 3. Tape over all 4 pockets, then flip the plate so the raised caster pad faces up.
 
-### Step 4 — Mount the motors
+### Step 4 — Build the wheels and mount the motors
 
-The motors ship with the wheels already on, so each goes on as one unit.
-
-1. Lay a motor on each rear arm: wheel pointing outward, solder tabs (or encoder board) toward the centre.
-2. Line the gearbox front face up with the arm tip. The wheel should sit about 1 mm clear of the tip.
-3. Encoder motors only: the encoder board drops into the shallow pocket beside the wire slot.
-4. Set a bracket over the gearbox with its two ears over the arm's two holes.
-5. Drive 2 M2 screws through each bracket into the nuts. Snug them only; overtightening crushes the gearbox.
-6. Spin each wheel by hand. It must turn freely and not touch the plate.
+1. Stretch a TPU tyre over each printed hub until it sits evenly all the way round.
+2. Press a wheel onto each motor's D-shaft, with the flat in the hub bore lined up with the flat on the shaft. Push it fully home.
+3. Lay a motor on each rear arm: wheel pointing outward, solder tabs (or encoder board) toward the centre.
+4. Line the gearbox front face up with the arm tip. The wheel should sit about 1 mm clear of the tip.
+5. Encoder motors only: the encoder board drops into the shallow pocket beside the wire slot.
+6. Set a bracket over the gearbox with its two ears over the arm's two holes.
+7. Drive 2 M2 screws through each bracket into the nuts. Snug them only; overtightening crushes the gearbox.
+8. Spin each wheel by hand. It must turn freely and not touch the plate.
 
 ### Step 5 — Mount the caster
 
 1. Wipe the raised round pad clean (isopropyl alcohol if you have it).
 2. Peel the caster's adhesive backing, centre the caster on the pad and press hard for 30 seconds.
-3. Leave it 24 hours before driving so the adhesive reaches full strength.
-4. Optional backup: drive 2 short self-tapping screws through the caster's holes into the pad, no more than 6 mm deep, or they will reach the base floor.
+3. Optional backup: drive 2 short self-tapping screws through the caster's holes into the pad, no more than 6 mm deep, or they will reach the base floor.
 
 ### Step 6 — Route the motor wires
 
