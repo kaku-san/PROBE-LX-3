@@ -1,0 +1,7 @@
+# Laptop / optional venv. This is only gpiozero, so scripts can run with
+# ROVER_MOCK=1 on a machine that is not a Pi.
+#
+# On the Raspberry Pi, install the apt packages in README.md instead.
+# Do not pip-install picamera2. RPi.GPIO is not used; it does not work on Pi 5.
+
+gpiozero>=2.0.1
