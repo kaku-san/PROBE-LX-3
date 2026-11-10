@@ -1,16 +1,10 @@
 """Pin map and tunables for Kakuji's rover.
 
-Change numbers here, then restart the program. Nothing else has to be edited
-unless you also want the wiring table in README.md to match.
+The gpiozero drive stack reads this map at startup. The standalone bench
+pulse tool uses its own fixed pin map for the tested wiring.
 
 Numbers are BCM (Broadcom) GPIO, which is what gpiozero expects. The physical
-pin is the 40-pin header position, counting from pin 1 (3.3 V, the square pad)
-at the outer corner of the header.
-
-LEFT_EN (GPIO 18) and RIGHT_EN (GPIO 13) sit on different PWM channels
-(PWM0 and PWM1). gpiozero on a Pi 5 uses software PWM and can drive any GPIO,
-but if you later switch to hardware PWM, do not move RIGHT_EN onto GPIO 12.
-GPIO 12 shares PWM0 with GPIO 18.
+pin is the 40-pin header position, counting from pin 1 (3.3 V, the square pad).
 
 GPIO 2, 3, 14, and 15 are left free (I2C and the serial console).
 """
@@ -33,12 +27,12 @@ ECHO = 25  # physical pin 22, after the divider
 
 # Header pins that are not GPIO.
 PIN_5V_PHYSICAL = 2
-PIN_GND_PHYSICAL = 6
+PIN_GND_PHYSICAL = 6  # HC-SR04 and the bottom of the ECHO divider
+PIN_MOTOR_GND_PHYSICAL = 14  # common ground to the motor adapter breakout
 
-# 1 kΩ from the sensor ECHO pin to the GPIO, 2 kΩ from that GPIO node to GND.
-# 10 kΩ and 20 kΩ work too (same 1:2 ratio).
+# ECHO -> 1 kΩ -> GPIO25 midpoint -> 1 kΩ -> GND (nominal 2.5 V high).
 ECHO_SERIES_OHMS = 1000
-ECHO_GND_OHMS = 2000
+ECHO_GND_OHMS = 1000
 
 PHYSICAL = {
     LEFT_IN1: 11,
@@ -51,8 +45,7 @@ PHYSICAL = {
     ECHO: 22,
 }
 
-# Duty cycle on ENA / ENB. 1.0 is full on. N20s on an L298N often need
-# around 0.5 or more before they start, especially from a 5 V brick.
+# Duty cycle on ENA / ENB for the gpiozero drive stack. 1.0 is full on.
 CRUISE_SPEED = 0.60
 TURN_SPEED = 0.45
 PWM_HZ = 1000
@@ -99,7 +92,14 @@ def describe_lines() -> list[str]:
         f"HC-SR04 VCC to physical pin {PIN_5V_PHYSICAL} (5 V). The sensor wants 5 V."
     )
     lines.append(
-        f"Common ground: motor-pack negative, L298N GND, sensor GND, Pi physical pin {PIN_GND_PHYSICAL}."
+        f"HC-SR04 GND and divider ground to Pi physical pin {PIN_GND_PHYSICAL}."
+    )
+    lines.append(
+        f"Motor adapter negative to L298N GND and Pi physical pin {PIN_MOTOR_GND_PHYSICAL}."
+    )
+    lines.append(
+        "External 5 V adapter positive to both L298N VM (+12V label) and logic +5V. "
+        "Remove ENA, ENB and 5V-EN caps. Power the Pi separately via USB-C."
     )
     lines.append(
         f"Echo divider: {ECHO_SERIES_OHMS} ohm from ECHO to the GPIO, "

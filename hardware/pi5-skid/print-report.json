@@ -1,0 +1,55 @@
+{
+  "slice_date": "2026-11-07",
+  "slicer": "Bambu Studio 02.08.02.61",
+  "material_grams": 69.11,
+  "estimated_seconds": 9497,
+  "settings": {
+    "printer_settings_id": "Bambu Lab P2S 0.4 nozzle",
+    "filament_settings_id": [
+      "Generic PLA @BBL P2S"
+    ],
+    "nozzle_diameter": [
+      "0.4"
+    ],
+    "layer_height": "0.16",
+    "initial_layer_print_height": "0.2",
+    "enable_support": "0",
+    "wall_loops": "4",
+    "brim_type": "outer_only",
+    "brim_width": "3",
+    "sparse_infill_density": "20%"
+  },
+  "geometry": {
+    "instances": 5,
+    "unique_meshes": 4,
+    "vertices": 4864,
+    "triangles": 9780,
+    "max_vertex_delta_mm_vs_placed_stls": 0,
+    "stock_drive_plate_source_sha256": "446b49bec15ddca2c25b456b0f81f32c6ce78c4b68328de20b2402602da192e9"
+  },
+  "physical_fit_scope": "Archived slice verification only; installed fit, travel and durability require hardware checks.",
+  "generated_toolpath": {
+    "layers": 222,
+    "empty_layers": [],
+    "support_toolpaths": false,
+    "bore_count": 12,
+    "through_bore_layer_checks": 476,
+    "violations_below_3_30_mm": 0,
+    "minimum_calculated_opening_mm": 3.3420177321994347,
+    "sha256": "3e01baa6dc2fc574a3a48d2256ebe26050169f28d3e29415ad2e881cd1006da9"
+  },
+  "editable_project": {
+    "audited_original_sha256": "dfe3d66c4de4023a8b5c1ffbf6ba29b4f87d60f9485f5a847e59b7ff35d0fa7d",
+    "distributed_sha256": "074289a538c7797fd24fb92c0861192280d65ad4c14a4489f3d0381a43879956",
+    "changed_member": "3D/3dmodel.model",
+    "metadata_edits": [
+      "Remove slicer account identifier",
+      "Add attribution and CC BY-SA 4.0 license"
+    ],
+    "unchanged_member_sha256": {
+      "3D/Objects/object_1.model": "aa6b01a988ac82ef0764c10d8d49e30029ad39157ce3c7e1594a7d0de26d8cce",
+      "Metadata/model_settings.config": "0d6f1282adb58c5fd8e29125226824f38a1007e327d20358c7f30abb79c24d4d",
+      "Metadata/project_settings.config": "39fa95270a4aa3e8dae2c29d6acdeb202dd1c18c94911d9a4ec9b9abf0e6cc42"
+    }
+  }
+}

@@ -45,7 +45,7 @@ def confirm(mock: bool) -> None:
         )
         raise SystemExit(2)
     print("Lift the rover so the wheels are off the ground.")
-    print("ENA and ENB jumpers must be removed.")
+    print("For the external 5 V bench hookup, ENA, ENB and 5V-EN caps must be off.")
     input("Press Enter to pulse the motors, or Ctrl+C to abort. ")
 
 

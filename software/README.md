@@ -1,10 +1,10 @@
 # Kakuji drive software
 
-This is Kakuji's L298N + HC-SR04 + Camera Module 3 adaptation, not stock PROBE wiring.
+This is Kakuji's Raspberry Pi 5 adaptation with an L298N, one HC-SR04 and a Camera Module 3.
 
 It is a small Python program for a Raspberry Pi 5. You drive two N20 gear motors through an L298N from the terminal. An HC-SR04 pauses forward motion when something is too close. A separate command saves one JPEG from the Camera Module 3.
 
-The STLs, CAD, and the files in `docs/` and `manual/` are the original PROBE LX-3 hardware release. They were not changed. `docs/WIRING.md` and `docs/BOM.md` still describe an Adafruit motor bonnet, a VL53L1X, and a USB Arducam. Use this page for the electronics below. The stock distance-sensor holes and camera bracket were drawn around those other boards, so an HC-SR04 and a Camera Module 3 may not bolt on. Tape or a zip tie is enough to point the sensor forward and to hold the camera. This folder does not add new printed parts.
+The [Pi 5 build handover](../docs/PI5-BUILD-HANDOVER.md) records the physical build, bench results and remaining fit checks. Use the wiring below for this adaptation. The original hardware guide describes the Adafruit bonnet, VL53L1X and USB Arducam. The adapted print set includes a Camera Module 3 carrier and keeper. The ultrasonic sensor needs a separate mount.
 
 ## Parts this program expects
 
@@ -15,7 +15,7 @@ The STLs, CAD, and the files in `docs/` and `manual/` are the original PROBE LX-
 | 2× N20 gear motors | The two outputs of the L298N |
 | L298N motor driver | Six GPIO pins via `gpiozero` |
 | HC-SR04 ultrasonic sensor | Trigger and echo GPIO pins |
-| A 5 V supply for the Pi, and a motor supply | 18650 pack and/or a 5 V brick, wired as in the power section |
+| Separate Pi USB-C supply and regulated 5 V DC, 3 A motor adapter | Shared ground through Pi physical pin 14 |
 
 `RPi.GPIO` does not work on a Pi 5. This project uses `gpiozero` (2.0 or newer) on purpose.
 
@@ -23,7 +23,7 @@ You do not need a Jetson, an Adafruit motor bonnet, a VL53L1X, a USB camera, a l
 
 ## Install on the Pi
 
-Flash **Raspberry Pi OS Bookworm (64-bit)**. Desktop or Lite both work. Connect Wi-Fi or a keyboard, then:
+On a Pi running **Raspberry Pi OS Bookworm (64-bit)**, install the dependencies:
 
 ```sh
 sudo apt update
@@ -49,7 +49,7 @@ python3 scripts/check_env.py
 
 You want `gpiozero: OK` and `picamera2: OK`.
 
-`requirements.txt` is for a laptop, where `ROVER_MOCK=1` runs the same commands with fake pins. On the Pi, the apt line above is the install. Do not pip-install `picamera2`; the apt package is the one that matches the camera stack.
+`requirements.txt` installs `gpiozero` for laptop simulations of the drive stack. The standalone bench pulse tool requires Raspberry Pi OS, real `lgpio` and `pinctrl`. On the Pi, install `picamera2` from apt to match the camera stack.
 
 ### Try the commands on a laptop
 
@@ -62,15 +62,15 @@ ROVER_MOCK=1 .venv/bin/python scripts/drive.py stop
 
 ## Wire it
 
-Power is unplugged while you wire. Two things will put 5 V onto a Pi pin if you skip them. Pi GPIO is not 5 V tolerant.
+Shut down the Pi and unplug both supplies before changing wires. Pi GPIO inputs are rated for 3.3 V.
 
-> Pull the **ENA** and **ENB** jumpers off the L298N **before** those pins are wired to the Pi. With the jumper on, the pin is tied to 5 V.
+> Remove the **ENA**, **ENB** and **5V-EN regulator** caps for this hookup. With the ZX-040 heatsink at the top, use the six outer control posts in order: ENA, IN1, IN2, IN3, IN4, ENB. The two inner posts behind ENA and ENB carry +5 V. Leave both empty.
 
 > Do not connect the HC-SR04 **ECHO** pin straight to the Pi. ECHO is a 5 V output. Put the divider on it first.
 
 ### Pin table
 
-BCM numbers are what `gpiozero` uses. Physical pin 1 is the 3.3 V pin with the square pad, on the outer corner of the header. All of these numbers live in `pins.py`. Change them there if you move a wire, then restart.
+BCM numbers select GPIO lines in software. Physical numbers identify header positions. With USB/Ethernet sockets at the top, components up and the header on the left, physical pin 2 is bottom-left and pin 1 is bottom-right. The drive stack reads `pins.py`. The standalone bench pulse helper is fixed to the verified wiring shown here.
 
 | Signal | Connects to | BCM | Physical pin |
 | --- | --- | --- | --- |
@@ -81,7 +81,7 @@ BCM numbers are what `gpiozero` uses. Physical pin 1 is the 3.3 V pin with the s
 | Right IN4 | L298N IN4 | 23 | 16 |
 | Right ENB | L298N ENB | 13 | 33 |
 | TRIG | HC-SR04 TRIG | 24 | 18 |
-| ECHO | HC-SR04 ECHO | 25 | 22 |
+| ECHO | Divider midpoint | 25 | 22 |
 
 ECHO in that table is the GPIO side of the divider, not the sensor pin itself.
 
@@ -93,7 +93,7 @@ physical 12  GPIO18  ----------- ENA     jumper removed
 physical 15  GPIO22  ----------- IN3     (right, with OUT3 and OUT4)
 physical 16  GPIO23  ----------- IN4
 physical 33  GPIO13  ----------- ENB     jumper removed
-physical  6  GND     ----------- GND ---- motor-supply negative
+physical 14  GND     ----------- spare breakout − ---- motor adapter negative / L298N GND
 
 HC-SR04
 VCC  ---------------------------- physical pin 2 (5 V)
@@ -102,42 +102,26 @@ TRIG ---------------------------- physical pin 18 (GPIO 24)
 
 ECHO --[ 1 kΩ ]--+-------------- physical pin 22 (GPIO 25)
                  |
-               [ 2 kΩ ]
+               [ 1 kΩ ]
                  |
                 GND
 ```
 
-10 kΩ and 20 kΩ are fine too: same 1:2 ratio. The GPIO must see about 3.3 V when ECHO is high, which is what 1 kΩ / 2 kΩ does (`5 V × 2/3`).
+The two 1 kΩ resistors divide a 5 V ECHO pulse to about **2.5 V** at GPIO25. Join the lower resistor and sensor ground to physical pin 6.
 
-Left and right are the rover's left and right while it drives toward the camera. On the PROBE body the camera is the front and the motors are at the rear. OUT1/OUT2 are the left N20. OUT3/OUT4 are the right N20. Motor wire colour does not matter yet; the motor test tells you if a pair is swapped.
+For the tested N20 harnesses (Robu SKU 476675), channel A uses red → OUT1 and white → OUT2. Channel B uses red → OUT3 and white → OUT4. Insulate each unused encoder wire separately: black (encoder supply), blue (encoder ground), yellow and green (signals). Software calls A left and B right. Confirm wheel direction with the wheels lifted after mounting.
 
 Leave at least 70 mm of slack on wires that cross from the dome to the base. The dome twists to come off, and a short wire will pull a connector out.
 
-`LEFT_EN` (GPIO 18) and `RIGHT_EN` (GPIO 13) are on two different PWM channels. `gpiozero` on a Pi 5 is software PWM, so any free GPIO works if you edit `pins.py`. GPIO 12 shares a hardware PWM channel with GPIO 18, so leave GPIO 12 alone if you later switch to hardware PWM.
-
 ### Motor power
 
-The Pi and the motors can share a ground. They should not share a power wire. Motor current through a Pi pin will reset or damage the Pi.
+The bench build uses a **SEM S530P2N1, 5 V DC, 3 A, centre-positive** barrel adapter. The Pi has its own USB-C supply. Share the ground, keeping the two positive supplies separate.
 
-The L298N drops roughly 1.5–2 V inside the chip. Many N20 gearmotors are happy around 6 V at the motor terminals, so the pack feeding the L298N motor terminal wants to be a bit higher than that. A single bare 18650 (about 3.7 V) is a poor motor supply on this driver, and it must not be plugged into the Pi's USB-C port. Use a holder or pack that already has its own protection and leads.
+1. With motor power unplugged and all three jumper caps off, connect one breakout **+** pin to L298N VM (labelled `+12V`). Connect a second **+** pin to L298N logic `+5V`. Both receive **5 V**. A higher-voltage adapter on this hookup would also put that voltage on the logic supply.
+2. Connect a breakout **−** pin to L298N GND. Connect a spare **−** pin to Pi physical **14** for the shared motor-control ground. Sensor VCC and ground remain on Pi physical **2** and **6**.
+3. Use the OFF check below before applying motor power. Recheck after a reboot or another program has used the pins. Disconnect the motor adapter if a motor stalls or a control process becomes unresponsive.
 
-**2S 18650 pack (about 7.4 V) for the motors, separate 5 V brick for the Pi.** This is the better of the two supplies you may have.
-
-1. Pi USB-C comes from the 5 V brick only.
-2. Pack positive goes to the L298N motor terminal (often marked `+12V` or `VMS`). Pack negative goes to L298N GND.
-3. Leave the L298N 5 V jumper **installed**, so the board makes its own logic 5 V from the motor pack.
-4. Do **not** connect the L298N 5 V pin to the Pi's 5 V pin.
-5. Do connect L298N GND to Pi GND (physical pin 6). The sensor ground uses that same node.
-
-**Only a 5 V brick.** It can feed the Pi and the motor terminal. The motors will run slowly, because they only see about 3–3.5 V after the L298N drop. Raise `CRUISE_SPEED` in `pins.py` if they only twitch.
-
-1. Pi USB-C from the brick.
-2. Brick 5 V also to the L298N motor terminal. Brick negative to L298N GND and to Pi GND.
-3. **Remove** the L298N 5 V jumper. The onboard regulator cannot make 5 V from a 5 V input.
-4. Connect the brick's 5 V (or Pi physical pin 2) to the L298N logic `+5V` pin, so the inputs have a supply. Do not also tie that pin back to a second 5 V source.
-5. Do not power the Pi from the L298N 5 V pin. That regulator cannot run a Pi 5.
-
-If the wheels are stalled against a wall or a table, pick the rover up. A stalled N20 gets hot, and a weak shared brick will reboot the Pi. If the program ever locks up, disconnect the motor pack. That stops the motors even if the Pi does not.
+This setup moved the unloaded motors in brief pulses. Battery power, sustained running and torque under chassis load still need validation.
 
 ### Camera cable
 
@@ -173,21 +157,25 @@ python3 scripts/capture.py photo.jpg
 
    On a desktop session, `rpicam-hello -t 3000` shows a 3 second preview first.
 
-4. Distance, with nothing touching the sensor, then with your hand about 10 cm in front:
+4. Aim the sensor squarely at a flat target. Measure from its two round faces. Start from a writable directory so `lgpio` can create its notification FIFO even when the checkout is read-only:
 
 ```sh
-python3 scripts/check_distance.py
+software_dir=$(pwd -P)  # run from software/
+bench_dir=$(mktemp -d)
+(cd "$bench_dir" && env -u ROVER_MOCK GPIOZERO_PIN_FACTORY=lgpio python3 "$software_dir/scripts/check_distance.py")
 ```
 
-   A clear space prints tens of centimetres. Your hand should drop the number. `no echo — forward would be locked` means a forward command will pause. Ctrl+C ends the script. It does not run the motors.
+   On the recorded bench, 30 readings at 16.51 cm were 16.7–16.8 cm and 30 at 31.75 cm were 31.5–32.8 cm. Removing the target produced 30 missing echoes. A missing return locks forward in the drive stack.
 
-5. Sit the rover on a box so the wheels are in the air. Then:
+5. For the verified Pi 5 wiring, stop any drive process, unplug the motor adapter and keep the shafts clear or wheels lifted. In the same shell as step 4, run the OFF check:
 
 ```sh
-python3 scripts/motor_test.py
+(cd "$bench_dir" && python3 "$software_dir/scripts/motor_bench_pulse.py")
 ```
 
-   It asks you to press Enter. Forward should turn both wheels so the rover would roll toward the camera. If it would spin in a circle, swap the two screws of the wheel that went the wrong way. If both wheels are backwards, swap both pairs. You can also swap that channel's two `IN` numbers in `pins.py` instead of the screws.
+   With no arguments the helper sets all six motor outputs LOW and verifies them. After the OFF check passes and the operator is ready to watch an unloaded motor, apply motor power. Add `--motor A` or `--motor B` to the same command to pulse the selected channel once for 250 ms. `--motor both` pulses both once. Each explicit motor option starts immediately. Verify movement and the six LOW readings after each invocation. The helper uses real `lgpio` on gpiochip0 (`pinctrl-rp1`) and the OS `pinctrl` utility. **It does not support `ROVER_MOCK`.**
+
+   The separate `python3 scripts/motor_test.py` runs a longer forward/reverse/turn sequence for checking directions after mounting, with wheels raised. Before reversing a pair of motor leads, disconnect motor power.
 
 6. Drive from the terminal:
 
@@ -225,7 +213,7 @@ A background loop reads the HC-SR04 about ten times a second.
 - Forward stays paused until three clear readings in a row. If the command is still `forward`, the rover then continues. It does not start forward on its own if the last command was stop, back, or a turn.
 - Ctrl+C, `stop`, or `quit` always stops the motors.
 
-`STOP_DISTANCE_M`, `CRUISE_SPEED`, and `TURN_SPEED` are in `pins.py`. `CRUISE_SPEED = 0.60` is 60% of full duty, so a stall is gentler than 100%. On a 5 V brick you may need to raise it before the N20s actually turn.
+`STOP_DISTANCE_M`, `CRUISE_SPEED`, and `TURN_SPEED` are in `pins.py`. The drive stack's default cruise setting is 60% duty. If a wheel stalls, stop and check motor mounting, clearance and power connections before further driving.
 
 The terminal prints a line about twice a second while a timed or one-shot command is running: distance, whether forward is blocked, and the safety message.
 
@@ -247,7 +235,8 @@ software/
     ├── drive.py              forward / back / left / right / stop
     ├── check_env.py          versions and the pin table
     ├── check_distance.py     print centimetres
-    ├── motor_test.py         short wheel pulse, rover lifted
+    ├── motor_bench_pulse.py  verified Pi 5 OFF check and finite unloaded pulse
+    ├── motor_test.py         forward, reverse and turns with wheels lifted
     └── capture.py            save photo.jpg
 ```
 
@@ -258,7 +247,7 @@ cd software
 python3 -m unittest discover -s tests -v
 ```
 
-The tests use `gpiozero`'s mock pins. They do not need a Pi, a camera, or a motor. `ROVER_MOCK=1` does the same thing for the scripts.
+The suite uses `gpiozero` mock pins. For laptop use, `ROVER_MOCK=1` enables mock mode in `drive.py`, `motor_test.py`, `check_distance.py` and `capture.py`. Run the standalone `motor_bench_pulse.py` only on its matching hardware.
 
 ## When something does not work
 
@@ -272,9 +261,9 @@ The tests use `gpiozero`'s mock pins. They do not need a Pi, a camera, or a moto
 | Distance never changes | TRIG and ECHO swapped, or ECHO skipped the divider. `check_distance.py` should move when your hand does. |
 | Forward always pauses | The sensor is inside 20 cm of the bench, or there is no echo. The status line says which. `back` still works. |
 | Forward never pauses | `check_distance.py` while you cover the sensor. If the number stays large, the echo is not reaching GPIO 25. |
-| Wheels only twitch | Raise `CRUISE_SPEED`. On 5 V into an L298N this is common. |
-| Forward spins the rover | One motor pair is reversed. Swap that pair's two screws. |
-| Pi reboots when the wheels start | Motor current is going through the Pi's supply. Use the separate motor pack, and keep the grounds tied. |
+| Wheels only twitch | Disconnect motor power. Check the free wheel/shaft clearance and both 5 V driver feeds. |
+| Forward spins the rover | Check each channel's direction with the wheels lifted. Disconnect motor power before swapping a motor pair. |
+| Pi reboots when the wheels start | Check the Pi's USB-C supply, separate motor adapter and shared ground. |
 
 ## License
 

@@ -63,9 +63,11 @@ class PinMapTests(unittest.TestCase):
         text = "\n".join(pins.describe_lines())
         for bcm in pins.gpio_pins():
             self.assertIn(f"BCM {bcm}", text)
-        self.assertIn(str(pins.PIN_5V_PHYSICAL), text)
-        self.assertIn(str(pins.ECHO_SERIES_OHMS), text)
-        self.assertIn(str(pins.ECHO_GND_OHMS), text)
+        self.assertIn("HC-SR04 VCC to physical pin 2", text)
+        self.assertIn("HC-SR04 GND and divider ground to Pi physical pin 6", text)
+        self.assertIn("L298N GND and Pi physical pin 14", text)
+        self.assertIn("1000 ohm from ECHO to the GPIO, 1000 ohm from the GPIO to ground", text)
+        self.assertIn("both L298N VM (+12V label) and logic +5V", text)
 
 
 class ReadmeTests(unittest.TestCase):
@@ -83,7 +85,7 @@ class ReadmeTests(unittest.TestCase):
         stop_cm = int(round(pins.STOP_DISTANCE_M * 100))
         self.assertIn(f"{stop_cm} cm", text)
         self.assertIn("Kakuji", text)
-        self.assertIn("not stock PROBE wiring", text)
+        self.assertIn("../docs/PI5-BUILD-HANDOVER.md", text)
         self.assertIn("L298N", text)
         self.assertIn("HC-SR04", text)
         self.assertIn("Camera Module 3", text)
@@ -93,8 +95,8 @@ class ReadmeTests(unittest.TestCase):
         self.assertIn("./scripts/run.sh", text)
         self.assertIn("scripts/drive.py", text)
         self.assertIn("scripts/capture.py", text)
-        self.assertIn("1 kΩ", text)
-        self.assertIn("2 kΩ", text)
+        self.assertEqual(text.count("[ 1 kΩ ]"), 2)
+        self.assertIn("2.5 V", text)
         lowered = text.lower()
         self.assertNotIn("flask", lowered)
         self.assertNotIn("systemctl", lowered)
