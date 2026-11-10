@@ -2,6 +2,8 @@
 
 [← Assembly](ASSEMBLY.md) · [README](../README.md) · Next: [Add-ons & upgrades →](UPGRADES.md)
 
+The diagram below is for the X1200 and motor bonnet build. For the L298N, two-resistor HC-SR04 divider and separate wall supplies, see the [Pi 5 build handover](PI5-BUILD-HANDOVER.md).
+
 ## System diagram
 
 ```mermaid

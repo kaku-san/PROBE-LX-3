@@ -2,6 +2,8 @@
 
 [← Printing](PRINTING.md) · [README](../README.md) · Next: [Wiring →](WIRING.md)
 
+For the printed motor caps, integrated front skid and Camera Module 3 carrier, follow the [adapted build handover](PI5-BUILD-HANDOVER.md) and its [illustrated steps](build-images/README.md). The sequence below describes the stock hardware.
+
 <p align="center"><img src="images/exploded.png" alt="Exploded view: drive plate, base, tray, X1200, Pi 5, bonnet, dome" width="520"></p>
 
 The robot goes together bottom-up in **13 steps**. Build the drive plate first and fix it to the empty base. Then load the electronics, and fit the dome last.

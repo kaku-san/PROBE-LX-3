@@ -1,0 +1,15 @@
+Start with the large drive plate, the two little matching caps, and your two motors with their wheels. Keep both power supplies unplugged.
+
+Put the drive plate on the table with the rounded bump facing up. Set one brass gearbox between the blocks on the end of an arm. The wheel hangs outside the plate, and the motor wires point toward the middle. Rest a cap over the brass gearbox. Hold it lightly and turn the wheel gently. You want about one millimeter of space so the wheel clears the plastic.
+
+You can do that fit check without any screws. To secure each motor, slide two M three nuts into the side slots. Use two M three by eight millimeter screws through the cap. Tighten evenly until the motor stays put. Repeat on the other arm. Once both are secured, turn the plate over. On a smooth table both wheels and the rounded front skid should touch.
+
+Next fit the bowl-shaped base onto the drive plate. Guide the motor wires through the matching openings. Lay the electronics tray inside the bowl, posts up. Four short brass threaded inserts belong underneath the tray. If they are missing, you can check the alignment with the pieces resting together. When all four inserts are installed, four M three by ten millimeter screws go up through the plate and base into those inserts.
+
+The two remaining camera pieces form a holder. Try the little keeper on the empty holder first. With all power disconnected, slide the camera board into the side grooves, lens facing the opening and ribbon connector toward the lower exit. The keeper sits on the frame. Let the ribbon make a loose bend. The distance sensor still needs its own holder with both round faces exposed.
+
+Before closing the dome, secure the Pi, the red motor driver, and the small resistor board on insulated supports. Keep wires clear of the wheels and fan. Check the camera image and the distance reading with the rover stationary.
+
+For the first movement test, support the rover so both wheels are off the table. Start the Pi with the motor adapter unplugged. Once the motor controls are verified off, connect the five volt motor adapter. Test one wheel at a time, then both, in short pulses. Return the motors to off.
+
+The floor test comes after the onboard power setup and the sensor mount are checked. For power planning, get the battery and regulator labels. Once the assembled rover passes a wheels raised test on that supply, start on a clear, smooth floor with one short move, then stop.

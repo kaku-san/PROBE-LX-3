@@ -29,7 +29,7 @@ PROBE LX-3 is a small differential-drive robot: a Ø245 mm dome on a Ø209 mm ba
 
 The dome twist-locks onto the base, so the electronics are one quarter-turn away. It's ready for a spinning lidar on top and a stereo speaker setup inside, with no reprints.
 
-**This repo is hardware only.** No software ships with it. You get a robot with a camera, a range sensor, two drive motors and a Pi 5, and you write the software you need. [WIRING.md](docs/WIRING.md) lists every bus and address you'll need.
+**Building the Pi 5 + L298N version?** Start with the [current build handover](docs/PI5-BUILD-HANDOVER.md). It records the measured HC-SR04 tests, the two-motor bench result, the finished print batch and the next physical assembly check. The fork also includes the [drive software](software/README.md), [adapted drive plate and camera carrier](hardware/pi5-skid/README.md), and a [visual assembly guide with English narration](docs/build-images/README.md). The parts list and four-step guide below describe the original LUMALIEN hardware.
 
 <table>
 <tr>
@@ -66,7 +66,9 @@ The dome twist-locks onto the base, so the electronics are one quarter-turn away
 ```
 PROBE-LX-3/
 ├── stl/                  Print-ready STL files (8)
-├── cad/                  Full Blender source model (all parts + reference hardware)
+├── cad/                  Original Blender source model
+├── hardware/pi5-skid/    Adapted drive plate, motor cap and camera parts
+├── software/             Pi 5 drive CLI, checks and bench helper
 ├── docs/
 │   ├── BOM.md            Everything you need to buy
 │   ├── PRINTING.md       Print settings and orientation per part

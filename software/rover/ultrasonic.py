@@ -6,7 +6,7 @@ so the safety gate can lock forward motion when the sensor is unplugged or
 the echo wire is dead.
 
 The echo pin on the sensor is 5 V. The Pi pin named in pins.ECHO must be the
-divided 3.3 V side, never the raw echo wire.
+midpoint of the two 1 kΩ resistors (nominal 2.5 V high).
 """
 
 from __future__ import annotations

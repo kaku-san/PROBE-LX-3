@@ -26,7 +26,6 @@ def main() -> int:
     for line in pins.describe_lines():
         print(" ", line)
     print()
-    print("Remove the L298N ENA and ENB jumpers before those wires touch the Pi.")
     print("Do not connect the HC-SR04 ECHO pin straight to a GPIO pin.")
     if not gpio_ok:
         return 1
